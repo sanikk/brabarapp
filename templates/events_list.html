@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Events Page{% endblock %}
+{% block content %}
+
+<h3>Events list</h3>
+<ul>
+    {% for event in events %}
+    <li><a href="/events/{{event.id}}">{{ event }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

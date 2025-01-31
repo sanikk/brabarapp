@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% block title %}Ratings Page{% endblock %}
+{% block content %}
+
+<h3>Ratings list</h3>
+<ul>
+    {% for rating in ratings %}
+    <li><a href="/ratings/{{rating.id}}">{{ rating }}</a></li>
+    {% endfor %}
+</ul>
+
+{% endblock %}
