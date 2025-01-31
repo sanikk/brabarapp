@@ -1,41 +1,41 @@
-PRAGMA foreign_keys = ON;
-
 CREATE TABLE IF NOT EXISTS accounts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    active BOOL DEFAULT TRUE,
-    username VARCHAR(32) UNIQUE,
-    password VARCHAR(256),
-    email VARCHAR(64) UNIQUE,
-    billing_info VARCHAR(256),
-    firstname VARCHAR(32),
-    lastname VARCHAR(32),
-    description VARCHAR(500)
+    active INTEGER DEFAULT 1,
+    added TEXT,
+    last_modified TEXT,
+    last_logged_in TEXT,
+    username TEXT UNIQUE,
+    password TEXT,
+    email TEXT UNIQUE,
+    billing_info TEXT,
+    firstname TEXT,
+    lastname TEXT,
+    description TEXT
 );
     
 CREATE TABLE IF NOT EXISTS restaurants (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    active BOOL DEFAULT TRUE,
-    name VARCHAR(64),
+    active INTEGER DEFAULT 1,
+    added TEXT,
+    last_modified TEXT,
+    name TEXT,
     account_id INTEGER,
-    latitude FLOAT,
-    longitude FLOAT,
-    place_id VARCHAR(20),
-    address VARCHAR(128),
-    description VARCHAR(500),
-    mondaystart TIME,
-    mondayend TIME,
-    tuesdaystart TIME,
-    tuesdayend TIME,
-    wednesdaystart TIME,
-    wednesdayend TIME,
-    thursdaystart TIME,
-    thursdayend TIME,
-    fridaystart TIME,
-    fridayend TIME,
-    saturdaystart TIME,
-    saturdayend TIME,
-    sundaystart TIME,
-    sundayend TIME,
+    address TEXT,
+    description TEXT,
+    mondaystart TEXT,
+    mondayend TEXT,
+    tuesdaystart TEXT,
+    tuesdayend TEXT,
+    wednesdaystart TEXT,
+    wednesdayend TEXT,
+    thursdaystart TEXT,
+    thursdayend TEXT,
+    fridaystart TEXT,
+    fridayend TEXT,
+    saturdaystart TEXT,
+    saturdayend TEXT,
+    sundaystart TEXT,
+    sundayend TEXT,
     FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
 
@@ -45,12 +45,13 @@ CREATE INDEX idx_account_active ON restaurants (account_id, active);
 
 CREATE TABLE IF NOT EXISTS ratings (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    active BOOL DEFAULT TRUE,
+    active INTEGER DEFAULT 1,
     account_id INTEGER,
     restaurant_id INTEGER,
-    posted_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    rating INTEGER CHECK(rating BETWEEN 1 AND 5),
-    content VARCHAR(500),
+    posted_on TEXT,
+    last_modified TEXT,
+    rating INTEGER,
+    content TEXT,
     FOREIGN KEY (account_id) REFERENCES accounts(id),
     FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
 );
@@ -58,14 +59,14 @@ CREATE TABLE IF NOT EXISTS ratings (
 
 CREATE TABLE IF NOT EXISTS events (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    active BOOL DEFAULT FALSE,
-    name VARCHAR(128),
+    active INTEGER DEFAULT 1,
+    name TEXT,
     restaurant_id INTEGER,
-    posted_on TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    posted_on TEXT,
     account_id INTEGER,
-    start_time TIMESTAMP,
-    end_time TIMESTAMP,
-    description VARCHAR(500),
+    start_time TEXT,
+    end_time TEXT,
+    description TEXT,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants(id),
     FOREIGN KEY (account_id) REFERENCES accounts(id)
 );
@@ -73,23 +74,27 @@ CREATE TABLE IF NOT EXISTS events (
 
 CREATE TABLE IF NOT EXISTS buffets (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    active BOOL DEFAULT TRUE,
+    active INTEGER DEFAULT 1,
     restaurant_id INTEGER,
-    name VARCHAR(128),
-    monday BOOL,
-    tuesday BOOL,
-    wednesday BOOL,
-    thursday BOOL,
-    friday BOOL,
-    saturday BOOL,
-    sunday BOOL,
-    starttime TIME,
-    endtime TIME,
+    posted_on TEXT,
+    last_modified TEXT,
+    name TEXT,
+    mondaystart TEXT,
+    mondayend TEXT,
+    tuesdaystart TEXT,
+    tuesdayend TEXT,
+    wednesdaystart TEXT,
+    wednesdayend TEXT,
+    thursdaystart TEXT,
+    thursdayend TEXT,
+    fridaystart TEXT,
+    fridayend TEXT,
+    saturdaystart TEXT,
+    saturdayend TEXT,
+    sundaystart TEXT,
+    sundayend TEXT,
     price INTEGER,
-    description VARCHAR(500),
+    description TEXT,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants(id)
 );
 
-CREATE TABLE IF NOT EXISTS openinghours (
-    restaurant_id
-);
