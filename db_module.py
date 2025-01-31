@@ -2,8 +2,18 @@ from db_connection import execute, query
 
 
 def get_last_restaurants(amount: int = 5):
-    sql = "SELECT id, name,address FROM restaurants WHERE active = 1"
+    sql = "SELECT id, name,address FROM restaurants WHERE active = 1 ORDER BY last_modified"
     return query(sql, {"amount": amount})
+
+
+def get_last_logged_in_accounts(amount: int = 5):
+    sql = """SELECT id, firstname, lastname FROM accounts WHERE active = 1 ORDER BY last_logged_in LIMIT :limit"""
+    return query(sql, {"limit": amount})
+
+
+def get_accounts_list(amount: int = 20):
+    sql = """SELECT id, firstname, lastname FROM accounts WHERE active = 1 ORDER BY last_logged_in LIMIT :limit"""
+    return query(sql, {"limit": amount})
 
 
 def create_user(

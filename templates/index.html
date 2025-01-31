@@ -12,12 +12,32 @@
 </ul>
 
 <h3>Last 5 Users</h3>
+<ul>
+{% for account in accounts %}
+    <li><a href="/accounts/{{ account.id }}">{{account.firstname or account.lastname }}</a></li>
+{% endfor %}
+</ul>
 
 <h3>Last 5 Reviews</h3>
+<ul>
+{% for rating in ratings %}
+    <li><a href="/ratings/{{rating.id}}">{{rating}}</a></li>
+{% endfor %}
+</ul>
 
 <h3>Last 5 Buffets</h3>
+<ul>
+{% for buffet in buffets %}
+    <li><a href="/buffets/{{buffet.id}}">{{buffet}}</a></li>
+{% endfor %}
+</ul>
 
 <h3>Last 5 Events</h3>
+<ul>
+    {% for event in events %}
+    <li><a href="/events/{{event.id}}">{{event}}</a></li>
+    {% endfor %}
+</ul>
 
 
 {% endblock %}
