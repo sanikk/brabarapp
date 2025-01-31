@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+<title>
+    {% block title %}{% endblock %} - BraBarApp
+</title>
+<h1>
+    BraBarApp
+</h1>
+<link rel="stylesheet" type="text/css" href="/static/style.css">
+</head>
+<body>
+{% with messages = get_flashed_messages() %}
+    {% for message in messages %}
+        <div class="flash_message">{{message}}</div>
+    {% endfor %}
+{% endwith %}
+<nav style="white-space: nowrap;">
+    <div style="float: left;">
+        <a href="/">Front page</a>
+        <a href="/restaurants">Restaurants/Bars</a>
+        <a href="/events">Events</a>
+        <a href="/buffets">Buffets</a>
+        <a href="/ratings">Reviews</a>
+        {% if session.user_id %}
+            <a href="/accounts/{{session.user_id}}">My account</a>
+            <a href="/messages/">My messages</a>
+        {% endif %}
+    </div>
+    <div style="float: right;">
+        {% if session.screenname %}
+            You are logged in as {{session.screenname}}
+            <a href="/accounts/logout">(Logout)</a>
+        {% else %}
+            <form action="/accounts/login" method="POST" style="display: inline;">
+                Username: <input type="text" name="username" autocomplete="username"> Password: <input type="password" name="password" autocomplete="current-password">
+                <button type="submit">Login</button>
+            </form>
+            or <a href="/accounts/registration">Register</a>
+        {% endif %}
+    </div>
+</nav>
+<br>
+<hr>
+{% block content %} {% endblock %}
+<hr>
+© 2024 Samuli Nikkilä
+</body>

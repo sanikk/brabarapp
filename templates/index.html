@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+<h3>Welcome to BraBarApp</h3>
+
+
+<h3>Last 5 Restaurants</h3>
+<ul>
+{% for restaurant in restaurants %}
+    <li><a href="/restaurants/{{ restaurant.id }}">{{ restaurant.name }}</a></li>
+{% endfor %}
+</ul>
+
+<h3>Last 5 Users</h3>
+
+<h3>Last 5 Reviews</h3>
+
+<h3>Last 5 Buffets</h3>
+
+<h3>Last 5 Events</h3>
+
+
+{% endblock %}
