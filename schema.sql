@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS accounts (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     active INTEGER DEFAULT 1,
-    added TEXT,
+    posted_on TEXT,
     last_modified TEXT,
     last_logged_in TEXT,
     username TEXT UNIQUE,
@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS accounts (
 CREATE TABLE IF NOT EXISTS restaurants (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     active INTEGER DEFAULT 1,
-    added TEXT,
+    posted_on TEXT,
     last_modified TEXT,
     name TEXT,
     account_id INTEGER,
@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS events (
     name TEXT,
     restaurant_id INTEGER,
     posted_on TEXT,
+    last_modified TEXT,
     account_id INTEGER,
     start_time TEXT,
     end_time TEXT,

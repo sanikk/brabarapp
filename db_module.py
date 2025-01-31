@@ -2,8 +2,8 @@ from db_connection import execute, query
 
 
 def get_last_restaurants(amount: int = 5):
-    sql = "SELECT id, name,address FROM restaurants WHERE active = 1 ORDER BY last_modified"
-    return query(sql, {"amount": amount})
+    sql = "SELECT id, name,address FROM restaurants WHERE active = 1 ORDER BY last_modified LIMIT :limit"
+    return query(sql, {"limit": amount})
 
 
 def get_last_logged_in_accounts(amount: int = 5):
@@ -11,8 +11,20 @@ def get_last_logged_in_accounts(amount: int = 5):
     return query(sql, {"limit": amount})
 
 
-def get_accounts_list(amount: int = 20):
-    sql = """SELECT id, firstname, lastname FROM accounts WHERE active = 1 ORDER BY last_logged_in LIMIT :limit"""
+def get_last_buffets(amount: int = 5):
+    sql = """SELECT id, name FROM buffets WHERE active = 1 ORDER BY last_modified LIMIT :limit"""
+    return query(sql, {"limit": amount})
+
+
+def get_last_events(amount: int = 5):
+    sql = """SELECT id, name FROM events WHERE active = 1 ORDER BY last_modified LIMIT :limit"""
+    return query(sql, {"limit": amount})
+
+
+def get_last_ratings(amount: int = 5):
+    sql = (
+        """SELECT * FROM ratings WHERE active = 1 ORDER BY last_modified LIMIT :limit"""
+    )
     return query(sql, {"limit": amount})
 
 
