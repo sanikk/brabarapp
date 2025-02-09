@@ -1,0 +1,38 @@
+form {
+    max-width: 600px; 
+}
+.formline {
+    display: flex;
+}
+.flabel {
+    float: left; 
+    text-align: right; 
+    width: 25%;
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.finput {
+    width:65%;
+    margin-bottom: 5px;
+}
+
+.fbutton {
+    display: block;
+    margin: auto;
+}
+
+.fcheckbox {
+    display: flex;
+
+}
+
+.flash_message {
+    font-size: 1.5em;
+    color: #00ba37;
+}
+
+.error_message {
+    font-size: 1.5em;
+    color: #b32d2e;
+}

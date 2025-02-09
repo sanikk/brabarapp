@@ -1,10 +1,11 @@
-from flask import render_template
+from flask import render_template, redirect
 from app import app
 from db_module import (
     get_last_restaurants,
     get_last_logged_in_accounts,
     get_last_events,
     get_last_buffets,
+    get_single_buffet,
     get_last_ratings,
 )
 
@@ -44,10 +45,24 @@ def restaurants_page():
     return render_template("restaurants_list.html", restaurants=restaurants)
 
 
+@app.route("/restaurants/new")
+def new_restaurant_form():
+    return render_template("restaurants_new.html", form_data={})
+
+
 @app.route("/buffets")
 def buffets_page():
     buffets = get_last_buffets(20)
     return render_template("buffets_list.html", buffets=buffets)
+
+
+@app.route("/buffets/<int:buffet_id>")
+def single_buffet_page(buffet_id: int):
+    buffet = get_single_buffet(buffet_id)
+    print(f"{buffet=}")
+    if not buffet:
+        return redirect("/buffets")
+    return render_template("buffets_single.html", buffet=buffet[0])
 
 
 @app.route("/ratings")
