@@ -3,10 +3,12 @@
 {% block content %}
 
 <h3>Buffets list</h3>
+
 <ul>
-    {% for buffet in buffets %}
-    <li><a href="/buffets/{{buffet.id}}">{{ buffet.name }}{{buffet}}</a></li>
-    {% endfor %}
+{% for buffet in buffets %}
+    <li><a href="/buffets/{{buffet.id}}">{{buffet.name}}</a> at <a href="/restaurants/{{buffet.restaurant_id}}">{{buffet.restaurant_name}}</a></li>
+{% endfor %}
 </ul>
 
+<a href="/buffets/new">Add a buffet</a>
 {% endblock %}
