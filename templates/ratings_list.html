@@ -3,10 +3,13 @@
 {% block content %}
 
 <h3>Ratings list</h3>
+
 <ul>
-    {% for rating in ratings %}
-    <li><a href="/ratings/{{rating.id}}">{{ rating }}</a></li>
-    {% endfor %}
+{% for rating in ratings %}
+    <li><a href="/ratings/{{rating.id}}">{{rating.rating | output_rating_stars }}</a> for <a href="/restaurants/{{rating.restaurant_id}}">{{ rating.restaurant_name }}</a> by <a href="/accounts/{{rating.account_id}}">{{ rating.account_name }}</a></li>
+{% endfor %}
 </ul>
+
+<a href="/ratings/new">Add a rating</a>
 
 {% endblock %}

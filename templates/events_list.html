@@ -5,8 +5,9 @@
 <h3>Events list</h3>
 <ul>
     {% for event in events %}
-    <li><a href="/events/{{event.id}}">{{ event }}</a></li>
+    <li><a href="/events/{{event.id}}">{{event.name}}</a> at <a href="/restaurants/{{event.restaurant_id}}">{{event.restaurant_name}}</a> on {{event.start_time}}</li>
     {% endfor %}
 </ul>
 
+<a href="/events/new">Add an event</a>
 {% endblock %}
