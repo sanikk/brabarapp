@@ -1,0 +1,75 @@
+{% extends "layout.html" %}
+{% block title %}Single Account Page{% endblock %}
+{% block content %}
+<h3>{{account.name}}</h3>
+<p>
+    {{ account.description or ''}}
+</p>
+<p>
+    Account created on {{ account.posted_on }}
+</p>
+{% if account.firstname or account.lastname %}
+<p>
+    Fullname: {{ account.firstname or '' }} {{account.lastname or '' }}
+</p>
+{% endif %}
+<p>
+    Last logged in on {{ account.last_logged_in or '' }}
+</p>
+{% if account.email %}
+<p>Your email is {{account.email}}<p>
+{% endif %}
+
+{% if account.billing_info %}
+<p>Your billing info is set as
+    {{ account.billing_info }}
+</p>
+{% endif %}
+{% if restaurants %}
+<h4>Restaurants:</h4>
+<ul>
+    {% for restaurant in restaurants %}
+    <li><a href="/restaurants/{{restaurant.id}}">{{restaurant.name}}</a> at {{restaurant.address}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if events %}
+<h4>Your Events</h4>
+<ul>
+    {% for event in events %}
+    <li>
+        <a href="/events/{{event.id}}">{{event.name}}</a> 
+        at <a href="/restaurants/{{event.restaurant_id}}">{{event.restaurant_name}}</a> 
+        on {{ event.start_time }}
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if ratings %}
+<h4>Your last reviews</h4>
+<p>You have written a total of 3 reviews with an average rating of 0.</p>
+<ul>
+    {% for rating in ratings[2] %}
+    <li><a href="/ratings/{{rating.id}}">A rating of {{rating.rating | output_rating_stars}}</a> for restaurant <a href="/restaurants/{{rating.restaurant_id}}">{{rating.restaurant_name}}</a> on {{rating.posted_on }}</li> 
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if buffets %}
+<h3>Buffets</h3>
+<ul>
+    {% for buffet in buffets %}
+    <li>{{buffet}}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if session.user_id == account.id %}
+<form action="/" method="GET"> 
+<button formaction="/accounts/delete/{{account.id}}" formmethod="POST">Delete</button>
+<button formaction="/accounts/edit/{{account.id}}" formmethod="GET">Edit details</button>
+</form>
+{% endif %}
+{% endblock %}
