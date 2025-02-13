@@ -1,14 +1,16 @@
 from app import app
 from db_module import (
-    get_last_logged_in_accounts,
-    check_username_and_password,
-    get_single_account_private,
-    get_single_account_public,
-    get_restaurants_by_account_id,
     get_events_by_account_id,
     get_ratings_by_account_id,
     get_buffets_by_account_id,
 )
+from db.accounts import (
+    get_last_logged_in_accounts,
+    check_username_and_password,
+    get_single_account_private,
+    get_single_account_public,
+)
+from db.restaurants import get_restaurants_by_account_id
 from flask import session, render_template, redirect, request, flash
 
 
@@ -32,7 +34,7 @@ def single_account_page(account_id: int):
     buffets = get_buffets_by_account_id(account_id)
     return render_template(
         "accounts_single.html",
-        account=account[0],
+        account=account,
         restaurants=restaurants,
         events=events,
         ratings=ratings,

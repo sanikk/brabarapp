@@ -1,15 +1,16 @@
 from flask import render_template, redirect, flash, session, request
 from app import app
 from db_module import (
-    get_last_restaurants,
-    get_single_restaurant,
-    get_last_logged_in_accounts,
     get_last_events,
     get_last_buffets,
     get_single_buffet,
     get_last_ratings,
 )
+from db.accounts import get_last_logged_in_accounts
+from db.restaurants import get_last_restaurants
+
 import routing.accounts
+import routing.restaurants
 
 
 @app.route("/")
@@ -33,26 +34,6 @@ def index():
 def events_page():
     events = get_last_events(20)
     return render_template("events_list.html", events=events)
-
-
-@app.route("/restaurants")
-def restaurants_page():
-    restaurants = get_last_restaurants(20)
-    return render_template("restaurants_list.html", restaurants=restaurants)
-
-
-@app.route("/restaurants/new")
-def new_restaurant_form():
-    return render_template("restaurants_new.html", form_data={})
-
-
-@app.route("/restaurants/<int:restaurant_id>")
-def single_restaurant_page(restaurant_id: int):
-    restaurant = get_single_restaurant(restaurant_id)[0]
-    if not restaurant:
-        flash("Error: can't access restaurant with that id")
-        return redirect("/restaurants")
-    return render_template("restaurants_single.html", restaurant=restaurant)
 
 
 @app.route("/buffets")

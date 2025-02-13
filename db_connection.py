@@ -23,5 +23,5 @@ def executemany(sql, params={}):
 
 def query(sql, params={}):
     with get_connection() as con:
-        result = con.execute(sql, params).fetchall()
+        result = con.execute(sql, params)
         return result
