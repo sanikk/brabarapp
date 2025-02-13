@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% block title %}Restaurants{% endblock %}
+{% block content %}
+<h2>Edit Restaurant</h2>
+<form action="/restaurants/update" method="POST">
+    <label class="flabel">Restaurant Name</label> <input class="finput" type="text" name="name" placeholder="{{restaurant.name}}" value="{{ form_data.get("name", "") }}">
+    <label class="flabel">Description</label> <textarea class="finput" name="description" rows="5" maxlength="500" >{{ form_data.get("description", "") or restaurant.description }}</textarea>
+    <label class="flabel">Restaurant Address</label> <input class="finput" type="text" name="address" placeholder="{{restaurant.address}}" value="{{ form_data.get("address","") }}">
+    <label class="flabel">Restaurant city</label> Helsinki<br>
+    <h4>Opening hours</h4>
+    <table>
+        <thead>
+            <th>Day</th>
+            <th>Opens at</th>
+            <th>Closes at</th>
+        </thead>
+        <tbody>
+            {% for i in range(0,7) %}
+            <tr>
+                <td>{{weekdays[i]}}</td>
+                <td><input type="time" name="{{weekdays[i].lower()}}start"
+                    value="{{oh.get(i+1, [''])[0] or form_data.get("{{weekdays[i].lower()}}start", "Closed")}}"/></td>
+                <td><input type="time" name="{{weekdays[i].lower()}}end"
+                    value="{{oh.get(i+1, ['',''])[1] or form_data.get("{{ weekdays[i].lower()}}end", "") }}"/></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <row class="fbutton">
+        <button formaction="/restaurants/{{restaurant.id}}" formmethod="GET">Cancel</button>
+        <button type="submit">Submit</button>
+    </row>
+    <input type="hidden" name="id" value="{{restaurant.id}}">
+</form>
+<br>
+
+{% endblock %}

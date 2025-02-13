@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}{{restaurant.name}}{% endblock %}
+{% block content %}
+<h3>{{restaurant.name}}</h3>
+
+<p>{{ restaurant.description or '' }}</p>
+
+<p>{{ restaurant.address or '' }}</p>
+
+<p>On BraBarApp since {{restaurant.posted_on}}.</p>
+<h4>Opening hours</h4>
+<table>
+    <thead>
+        <th>Day</th>
+        <th>Opens at</th>
+        <th>Closes at</th>
+    </thead>
+    <tbody>
+        {% for i in range(0,7) %}
+        <tr>
+            <td>{{weekdays[i]}}</td>
+            <td>{{opening_hours.get(i+1, [''])[0] or 'Closed'}}</td>
+            <td>{{opening_hours.get(i+1, [''])[1] or ''}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% if session.user_id == restaurant.account_id %}
+<form action="/" method="GET"> 
+<button formaction="/restaurants/delete/{{restaurant.id}}" formmethod="POST">Delete</button>
+<button formaction="/restaurants/edit/{{restaurant.id}}" formmethod="GET">Edit details</button>
+</form>
+{% endif %}
+{% endblock %}

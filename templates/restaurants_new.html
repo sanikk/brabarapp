@@ -2,8 +2,9 @@
 {% block title %}New Restaurant{% endblock %}
 {% block content %}
 <h2>Add a Restaurant</h2>
-<form action="/restaurants/update" method="POST">
+<form action="/restaurants/create" method="POST">
     <label class="flabel">Restaurant Name</label> <input class="finput" type="text" name="name" value="{{ form_data.get("name", "") }}">
+        <label class="flabel">Description</label> <textarea class="finput" name="description" rows="5" maxlength="500">{{ form_data.get("description", "")}}</textarea>
     <label class="flabel">Restaurant Address</label> <input class="finput" type="text" name="address" value="{{ form_data.get("address","") }}">
     <label class="flabel">Restaurant city</label> Helsinki<br>
     <h4>Opening hours</h4>
@@ -17,9 +18,9 @@
             {% for day in weekdays %}
             <tr>
                 <td>{{day}}</td>
-                <td><input type="text" id="timePicker" name="{{day.lower()}}start" 
+                <td><input type="time" name="{{day.lower()}}start" 
                     value="{{form_data.get("{{day.lower()}}start", "") }}"/></td>
-                <td><input type="text" id="timePicker" name="{{day.lower()}}end" 
+                <td><input type="time" name="{{day.lower()}}end" 
                     value="{{form_data.get("{{day.lower()}}end", "") }}"/></td>
             </tr>
             {% endfor %}
@@ -32,15 +33,4 @@
 </form>
 <br>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
-<script>
-    flatpickr("#timePicker", {
-        enableTime: true,
-        noCalendar: true,
-        dateFormat: "H:i",
-        time_24hr: true,
-    });
-</script>
 {% endblock %}
